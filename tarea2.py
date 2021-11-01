@@ -90,7 +90,7 @@ for i in range(0,n):
     solucion.append([puestos[i],largos[i]])
 
 print("SOLUCION INICIAL")
-#print(solucion)
+print(solucion)
 print("\n")
 print("ESFUERZO  INICIAL")
 print(esfuerzo(solucion,w))
@@ -121,7 +121,7 @@ while t0>tmin:
             solucion=list(solucion_potencial) 
     t0=alfa*t0
 print("RESULTADO FINAL")
-#print(solucion)
+print(solucion)
 
 print("ESFUERZO  FINAL")
 print(esfuerzo(solucion,w))
