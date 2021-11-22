@@ -32,13 +32,14 @@ def esfuerzo(sol, w):
             dist=distancia(sol,i,j)
             #print(w[i][j])
             total+= w[sol[i][0]-1][sol[j][0]-1]*dist
-            #print(f" {i},{j}: puestos: {sol[i][0]},{sol[j][0]} dist {dist}, wij: {w[sol[i][0]-1][sol[j][0]-1]},")
+            print(f" {i},{j}: puestos: {sol[i][0]},{sol[j][0]} dist {dist}, wij: {w[sol[i][0]-1][sol[j][0]-1]},")
 
     return total
 
+
 def sol_aleatoria_swap(solucion,n):
     """
-    Esta funcion genera una solucion aleatoria
+    Esta funcion genera una solucion aleatoria, mediante el swap de dos posiciones
     @param solucion: solucion base desde la cual se genera una solucion aleatoria, es una matriz con el numero del puesto y el largo del puesto
     @param n: largo de la solucion aleatoria
     @return solucion_random : solucion aleatoria 
@@ -67,7 +68,7 @@ def imprime_puestos(sol):
     return orden_puestos
 
 #primero se leen e inicilizan los datos
-file = open("QAP_sko56_04_n", "r")
+file = open("S8", "r")
 n=0
 largos=list() #variables l (largos) de los puestos
 w=list() #variable w de la tarea
@@ -102,42 +103,10 @@ print("ESFUERZO  INICIAL")
 print(esfuerzo(solucion,w))
 print("\n")
 #generar solucion aleatoria
-
-t_inicial=3000.0 #temperatura inicial
-alfa=0.98 #enfriamiento
-t_min=300 #temperatura minima
-n_iteracion=1
-si=0
-no=0
-while (t_inicial>t_min) :
-    
-    #se genera solucion aleatoria
-    solucion_potencial=sol_aleatoria_swap(solucion,n)
-    #diferencia de funciones objetivo
-    dif_esfuerzos=esfuerzo(solucion_potencial,w)-esfuerzo(solucion,w)
-    
-    if dif_esfuerzos<0:
-        solucion=list(solucion_potencial)
-        #print(f"{n_iteracion}: EXPLOTACION, diferencia: {dif_esfuerzos}, temperatura: {t_inicial} , esfuerzo: {esfuerzo(solucion,w)}")
-        print("----")
-    else:
-        #probabilidad= euler**((-1*dif_esfuerzos)/t_inicial)
-        probabilidad= round(euler**((-1*dif_esfuerzos)/t_inicial),5)
-        #if round(random.random(),2)< probabilidad:
-        numero=round(random.random(),5)
-        if numero< probabilidad:    
-            solucion=list(solucion_potencial) 
-            print(f"{n_iteracion}: EXPLORACION, PROB:{probabilidad}--numero: {numero}, temp: {t_inicial}, dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion,w)}")
-            si+=1
-        else:
-            print(f"{n_iteracion}: NO ACEPTA, PROB:{probabilidad}--numero: {numero}, temp: {t_inicial} dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion_potencial,w)}")
-            no+=1
-    t_inicial=round(alfa*t_inicial,2)
-    n_iteracion+=1
+solucion_potencial=sol_aleatoria_swap(solucion,n)
 print("SOLUCION FINAL")
-print(imprime_puestos(solucion))
+print(imprime_puestos(solucion_potencial))
 
 print("ESFUERZO  FINAL")
-print(esfuerzo(solucion,w))
+print(esfuerzo(solucion_potencial,w))
 
-print(f"si: {si}, no: {no}, resto {114-si-no}")
