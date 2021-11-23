@@ -96,17 +96,6 @@ solucion=list() #solucion inicial, es una matriz con el numero del puesto y el l
 for i in range(0,n):
     solucion.append([puestos[i],largos[i]])
 
-print("SOLUCION INICIAL")
-print(imprime_puestos(solucion))
-print("\n")
-print("ESFUERZO  INICIAL")
-print(esfuerzo(solucion,w))
-print("\n")
-#generar solucion aleatoria
-solucion_potencial=sol_aleatoria_swap(solucion,n)
-print("SOLUCION FINAL")
-print(imprime_puestos(solucion_potencial))
+print(w)
 
-print("ESFUERZO  FINAL")
-print(esfuerzo(solucion_potencial,w))
 
