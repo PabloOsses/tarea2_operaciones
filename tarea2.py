@@ -146,7 +146,7 @@ while (t_inicial>t_min) :
     if dif_esfuerzos<0:
         #EXPLORACION DEL ALGORITMO
         solucion=list(solucion_potencial)
-        #print(f"{n_iteracion}: EXPLOTACION, diferencia: {dif_esfuerzos}, temperatura: {t_inicial} , esfuerzo: {esfuerzo(solucion,w)}")
+        print(f"{n_iteracion}: EXPLOTACION, diferencia: {dif_esfuerzos}, temperatura: {t_inicial} , esfuerzo: {esfuerzo(solucion,w)}")
     else:
         probabilidad= euler**((-1*dif_esfuerzos)/t_inicial)
         #PROBABILIDAD PARA EL CRITERIO DE METROPOLI
@@ -155,11 +155,11 @@ while (t_inicial>t_min) :
         if numero_random< probabilidad:
             #EXPLOTACION DEL ALGORITMO
             solucion=list(solucion_potencial) 
-            #print(f"{n_iteracion}: EXPLORACION, PROB:{probabilidad}--numero: {numero_random}, temp: {t_inicial}, dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion,w)}")
+            print(f"{n_iteracion}: EXPLORACION, PROB:{probabilidad}--numero: {numero_random}, temp: {t_inicial}, dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion,w)}")
             aceptado+=1
         else:
             #NO ACEPTA LA SOLUCION
-            #print(f"{n_iteracion}: NO ACEPTA, PROB:{probabilidad}--numero: {numero_random}, temp: {t_inicial} dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion_potencial,w)}")
+            print(f"{n_iteracion}: NO ACEPTA, PROB:{probabilidad}--numero: {numero_random}, temp: {t_inicial} dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion_potencial,w)}")
             no_aceptado+=1
     t_inicial=round(alfa*t_inicial,2)
     #ENFRIAMIENTO
