@@ -127,24 +127,24 @@ print(imprime_puestos(solucion))
 
 print("ESFUERZO  INICIAL")
 print(esfuerzo(solucion,w))
-print("\n")
+
 #generar solucion aleatoria
 
 t_inicial=4000.0 #temperatura inicial
 alfa=0.98 #enfriamiento
 t_min=400 #temperatura minima
 n_iteracion=1
-aceptado=0
-no_aceptado=0
+aceptado=0 #numero de exploraciones aceptadas
+no_aceptado=0 #numero de exploraciones  NO aceptadas
 while (t_inicial>t_min) :
     
-    #se genera solucion aleatoria
+    #se genera solucion potencial aleatoria
     solucion_potencial=sol_aleatoria_swap(solucion,n)
     #diferencia de funciones objetivo
     dif_esfuerzos=esfuerzo(solucion_potencial,w)-esfuerzo(solucion,w)
     
     if dif_esfuerzos<0:
-        #EXPLORACION DEL ALGORITMO
+        #EXPLOTACION DEL ALGORITMO
         solucion=list(solucion_potencial)
         print(f"{n_iteracion}: EXPLOTACION, diferencia: {dif_esfuerzos}, temperatura: {t_inicial} , esfuerzo: {esfuerzo(solucion,w)}")
     else:
@@ -153,13 +153,13 @@ while (t_inicial>t_min) :
         
         numero_random=round(random.random(),5)
         if numero_random< probabilidad:
-            #EXPLOTACION DEL ALGORITMO
+            #EXPLORACION DEL ALGORITMO
             solucion=list(solucion_potencial) 
-            print(f"{n_iteracion}: EXPLORACION, PROB:{probabilidad}--numero: {numero_random}, temp: {t_inicial}, dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion,w)}")
+            print(f"{n_iteracion}: EXPLORACION, PROB:{probabilidad}--numero-random: {numero_random}, temp: {t_inicial}, dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion_potencial,w)}")
             aceptado+=1
         else:
             #NO ACEPTA LA SOLUCION
-            print(f"{n_iteracion}: NO ACEPTA, PROB:{probabilidad}--numero: {numero_random}, temp: {t_inicial} dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion_potencial,w)}")
+            print(f"{n_iteracion}: NO ACEPTA, PROB:{probabilidad}--numero_random: {numero_random}, temp: {t_inicial} dif: {dif_esfuerzos}, esfuerzo: {esfuerzo(solucion_potencial,w)}")
             no_aceptado+=1
     t_inicial=round(alfa*t_inicial,2)
     #ENFRIAMIENTO
@@ -170,4 +170,4 @@ print(imprime_puestos(solucion))
 print("ESFUERZO  FINAL")
 print(esfuerzo(solucion,w))
 
-print(f"EXPLOTACIONES {114-aceptado-no_aceptado}, EXPLORACIONES {aceptado}, NO ACEPTADO {no_aceptado}")
+print(f"EXPLOTACIONES {n_iteracion-aceptado-no_aceptado}, EXPLORACIONES {aceptado}, NO ACEPTADO {no_aceptado}")
